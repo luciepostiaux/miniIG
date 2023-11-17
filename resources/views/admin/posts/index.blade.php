@@ -48,8 +48,8 @@
                                         {{ $post->updated_at->diffForHumans() }}
                                     </td>
                                     <td class="border px-4 py-2 space-x-4">
-                                        <a href="{{ route('articles.edit', $article->id) }}" class="text-blue-400">Edit</a>
-                                        <form action="{{ route('articles.destroy', $article->id) }}" method="POST" class="inline">
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="text-blue-400">Edit</a>
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-400">Delete</button>
@@ -61,7 +61,7 @@
                         </table>
 
                         <div class="mt-4">
-                            {{ $articles->links() }}
+                            {{ $posts->links() }}
                         </div>
                     </div>
                 </div>
