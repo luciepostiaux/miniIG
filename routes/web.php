@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\HomepageController;
-use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 // autres imports ...
-use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,14 +18,10 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 
 Route::get('/', [HomepageController::class, 'index'])->name("homepage");
 
-Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
-Route::get('/posts/{id}', [PostsController::class, 'show'])->name('posts.show');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
 
-// autres routes ...
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::resource('posts', AdminPostController::class);
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
