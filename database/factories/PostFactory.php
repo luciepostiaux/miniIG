@@ -18,7 +18,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'legend' => fake()->realTextBetween($minNbChars = 500, $maxNbChars = 2000),
+            'legend' => fake()->realTextBetween($minNbChars = 1, $maxNbChars = 250),
             'img_path' => function () {
                 $absolutePath = fake()->image(storage_path('app/public/images'), 640, 480, 'cats', true);
 
