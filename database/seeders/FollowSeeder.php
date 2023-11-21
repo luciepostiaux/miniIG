@@ -2,21 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\Post;
+use App\Models\Follow;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PostTableSeeder extends Seeder
+class FollowSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
-        Post::factory()
-            ->count(50)
-            ->create();
+        Follow::factory()
+        ->count(857)
+        ->create();
     }
 }
