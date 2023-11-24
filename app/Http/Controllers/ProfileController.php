@@ -66,10 +66,10 @@ class ProfileController extends Controller
 
         // Si l'image est valide, on la sauvegarde
         if ($request->hasFile('avatar')) {
-            $users = $request->user();
+            $user = $request->user();
             $path = $request->file('avatar')->store('avatars', 'public');
-            $users->avatar_path = $path;
-            $users->save();
+            $user->avatar_path = $path;
+            $user->save();
         }
 
         return Redirect::route('profile.edit')->with('status', 'avatar-updated');
