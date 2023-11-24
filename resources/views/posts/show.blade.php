@@ -11,5 +11,10 @@
     <div>
         {!! \nl2br($post->legend) !!}
     </div>
-
+    <div class="flex mt-8">
+        <x-avatar class="h-20 w-20" :user="$post->user" />
+        <div class="ml-4 flex flex-col justify-center">
+            <div class="text-gray-700">{{ $post->user->name }}</div>
+        </div>
+    </div>
 </x-guest-layout>
