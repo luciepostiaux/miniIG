@@ -19,8 +19,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomepageController::class, 'index'])->name("homepage");
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
+// Pour s'abonner
+Route::post('/users/{user}/follow', [UserController::class, 'follow']);
+
+// Pour se désabonner
+Route::post('/users/{user}/unfollow', [UserController::class, 'unfollow']);
 
 
 Route::get('/dashboard', function () {
