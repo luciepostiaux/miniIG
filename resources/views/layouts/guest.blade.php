@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="flex space-x-4">
-                    <a class="font-bold hover:text-emerald-600 transition" href="{{ route('posts.index') }}">Posts</a>
+                    
                     @if (Route::has('login'))
                     <div>
                         @auth

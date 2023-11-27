@@ -12,9 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    <x-nav-link class="font-bold hover:text-emerald-600 transition" :href=" route('posts.index') " :active="request()->routeIs('posts')">Posts</x-nav-link>
+                    <x-nav-link class="font-bold hover:text-emerald-600 transition" :href=" route('posts.create') " :active="request()->routeIs('posts/')">Créer un post</x-nav-link>
                 </div>
             </div>
 
@@ -34,8 +33,11 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.show' , Auth::user())">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('profile.edit')">
+                            {{ __('Paramètres') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -45,7 +47,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Déconnexion') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -67,9 +69,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            <x-responsive-nav-link class="font-bold hover:text-emerald-600 transition" :href=" route('posts.index') " :active="request()->routeIs('posts')">Posts</x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -80,9 +80,12 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('profile.show' , Auth::user())">
+                            {{ __('Profile') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Paramètres') }}
+                        </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

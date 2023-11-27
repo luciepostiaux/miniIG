@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostStoreRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +21,16 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $posts = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
+
+        $comments = $post
+            ->comments()
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('posts.show', [
-            'post' => $posts,
+            'post' => $post,
+            'comments' => $comments,
         ]);
     }
 
@@ -47,5 +54,24 @@ class PostController extends Controller
 
 
         return redirect()->route('posts.index');
+    }
+
+    public function addComment(Request $request, Post $post)
+    {
+        // On vérifie que l'utilisateur est authentifié
+        $request->validate([
+            'body' => 'required|string|max:2000',
+        ]);
+
+        // On crée le commentaire
+        $comment = $post->comments()->make();
+        // On remplit les données
+        $comment->comment = $request->input('body');
+        $comment->user_id = auth()->user()->id;
+        // On sauvegarde le commentaire
+        $comment->save();
+
+        // On redirige vers la page de l'article
+        return redirect()->back();
     }
 }

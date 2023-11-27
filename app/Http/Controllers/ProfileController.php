@@ -85,17 +85,10 @@ class ProfileController extends Controller
             ->orderByDesc('published_at')
             ->get();
 
-        // Les commentaires de l'utilisateur triés par date de création
-        $comments = $user
-            ->comments()
-            ->orderByDesc('created_at')
-            ->get();
-
         // On renvoie la vue avec les données
         return view('profile.show', [
             'user' => $user,
             'posts' => $posts,
-            'comments' => $comments,
         ]);
     }
 }
