@@ -58,11 +58,13 @@ class User extends Authenticatable
     }
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'subscriptions', 'followed_id', 'follower_id');
+        // Utilisez 'following_id' au lieu de 'followed_id'
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
     }
 
     public function following()
     {
-        return $this->belongsToMany(User::class, 'subscriptions', 'follower_id', 'followed_id');
+        // Ici, les noms des colonnes sont corrects
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
 }

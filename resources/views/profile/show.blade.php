@@ -15,7 +15,30 @@
         </div>
         <div class="text-gray-500 text-xs">
             {{ $user->bio }}
+
+            <p>{{ $user->followers->count() }} followers</p>
+
+
+            <p>{{ $user->following->count() }} following</p>
+
         </div>
+
+
+        @if (auth()->user()->isNot($user))
+        @if (auth()->user()->following->contains($user))
+        <form action="{{ route('users.unfollow', $user) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Unfollow</button>
+        </form>
+        @else
+        <form action="{{ route('users.follow', $user) }}" method="POST">
+            @csrf
+            <button type="submit">Follow</button>
+        </form>
+        @endif
+        @endif
+
     </div>
     <div class="mt-8">
         <h2 class="font-bold text-xl mb-4">Posts</h2>

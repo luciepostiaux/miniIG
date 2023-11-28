@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('posts.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
@@ -44,8 +44,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Déconnexion') }}
                             </x-dropdown-link>
@@ -70,6 +69,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link class="font-bold hover:text-emerald-600 transition" :href=" route('posts.index') " :active="request()->routeIs('posts')">Posts</x-responsive-nav-link>
+            <x-responsive-nav-link class="font-bold hover:text-emerald-600 transition" :href=" route('posts.create') " :active="request()->routeIs('posts/')">Créer un post</x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -81,18 +81,17 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.show' , Auth::user())">
-                            {{ __('Profile') }}
-                        </x-responsive-nav-link>
-                        <x-responsive-nav-link :href="route('profile.edit')">
-                            {{ __('Paramètres') }}
-                        </x-responsive-nav-link>
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Paramètres') }}
+                </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>

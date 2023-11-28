@@ -1,3 +1,11 @@
+<script>
+    document.querySelectorAll('.like-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Ici, vous pouvez ajouter une requête AJAX pour envoyer le like
+        });
+    });
+</script>
 <x-app-layout>
 
     <h1 class="font-bold text-3xl mb-4 underline-offset-8 text-center uppercase text-zinc-700"></h1>
@@ -24,6 +32,11 @@
 
         </a>
     </div>
+    <form action="{{ route('post.like', $post->id) }}" method="POST">
+        @csrf
+        <button type="submit">{{ $post->likes->count() }} Like</button>
+    </form>
+
     <div class="mt-8">
         <h2 class="font-bold text-xl mb-4">Commentaires</h2>
 

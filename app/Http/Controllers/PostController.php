@@ -10,9 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::paginate(12);
+
+        $posts = Post::where('published_at', '<', now())
+            ->where('legend', 'LIKE', '%' . $request->query('search') . '%')
+            ->orWhereHas('user', function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->query('search') . '%');
+            })
+            ->orderByDesc('published_at')
+            ->paginate(12);
 
         return view('posts.index', [
             'posts' => $posts,
@@ -73,5 +81,19 @@ class PostController extends Controller
 
         // On redirige vers la page de l'article
         return redirect()->back();
+    }
+
+    public function like(Request $request, Post $post)
+    {
+        // Ajouter ou supprimer le like
+        $like = $post->likes()->where('user_id', auth()->id())->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            $post->likes()->create(['user_id' => auth()->id()]);
+        }
+
+        return back();
     }
 }

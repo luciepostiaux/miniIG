@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 // autres imports ...
 /*
@@ -24,14 +26,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
-    // Ajout d'un commentaire
+
     Route::post('/posts/{post}/comments', [PostController::class, 'addComment'])->name('posts.comments.add');
 
-    // Pour s'abonner
-    Route::post('/users/{user}/follow', [UserController::class, 'follow']);
+    Route::post('/users/{user}/follow', [UserController::class, 'follow'])->name('users.follow');
+    Route::delete('/users/{user}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
 
-    // Pour se désabonner
-    Route::post('/users/{user}/unfollow', [UserController::class, 'unfollow']);
+
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('post.like');
 });
 
 
