@@ -12,20 +12,44 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::paginate(12);
+        // Récupérer les ID des utilisateurs suivis
+        $followingIds = auth()->user()->following()->pluck('users.id')->toArray();
 
-        $posts = Post::where('published_at', '<', now())
-            ->where('legend', 'LIKE', '%' . $request->query('search') . '%')
-            ->orWhereHas('user', function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->query('search') . '%');
+        // Requête pour les posts des utilisateurs suivis
+        $postsFromFollowing = Post::whereIn('user_id', $followingIds)
+            ->where('published_at', '<', now())
+            ->where(function ($query) use ($request) {
+                $query->where('legend', 'LIKE', '%' . $request->query('search') . '%')
+                    ->orWhereHas('user', function ($subQuery) use ($request) {
+                        $subQuery->where('name', 'LIKE', '%' . $request->query('search') . '%');
+                    });
             })
-            ->orderByDesc('published_at')
-            ->paginate(12);
+            ->withCount('likes')
+            ->orderByDesc('likes_count')
+            ->orderByDesc('published_at');
+
+        // Requête pour les autres posts
+        $otherPosts = Post::whereNotIn('user_id', $followingIds)
+            ->where('published_at', '<', now())
+            ->where(function ($query) use ($request) {
+                $query->where('legend', 'LIKE', '%' . $request->query('search') . '%')
+                    ->orWhereHas('user', function ($subQuery) use ($request) {
+                        $subQuery->where('name', 'LIKE', '%' . $request->query('search') . '%');
+                    });
+            })
+            ->withCount('likes')
+            ->orderByDesc('likes_count')
+            ->orderByDesc('published_at');
+
+        // Combiner les deux requêtes
+        $posts = $postsFromFollowing->union($otherPosts)->paginate(12);
 
         return view('posts.index', [
             'posts' => $posts,
         ]);
     }
+
+
 
     public function show($id)
     {

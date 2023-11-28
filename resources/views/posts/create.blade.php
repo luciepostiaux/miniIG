@@ -21,8 +21,8 @@
 
                 <div>
                     <x-input-label for="image" :value="__('Image du post')" />
-                    <input id="image" type="file" class="block mt-1 w-full" name="image">
-                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                    <input required id="image" type="file" class="block mt-1 w-full" name="image">
+                    <x-input-error :messages="$errors->get('image')" class="mt-2:" />
                 </div>
 
                 <div>
