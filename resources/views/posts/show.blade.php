@@ -66,7 +66,7 @@
                 </div>
             </div>
             @empty
-            <div class="flex bg-white rounded-md shadow p-4 space-x-4">
+            <div class="flex bg-whi te rounded-md shadow p-4 space-x-4">
                 Aucun commentaire pour l'instant
             </div>
             @endforelse @auth

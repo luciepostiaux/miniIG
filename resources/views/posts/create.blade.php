@@ -8,11 +8,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-            <div class="flex justify-between mt-8">
-                <div class=" text-2xl">
-                    Créer un post
-                </div>
-            </div>
+
 
             <form method="POST" action="{{ route('posts.store') }}" class="flex flex-col space-y-4 text-gray-500" enctype="multipart/form-data">
 
@@ -32,7 +28,7 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <x-primary-button type="submit">
+                    <x-primary-button type="submit" class="bg-[#6C8C6E]">
                         {{ __('Créer') }}
                     </x-primary-button>
                 </div>
