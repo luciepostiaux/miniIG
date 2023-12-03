@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="description" content="Bienvenue sur InstaInspire, votre nouvelle plateforme pour capturer et partager des moments inoubliables !">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -17,7 +18,7 @@
 
 <body class="font-sans text-gray-900 antialiased ">
     <div class="min-h-screen flex flex-col pt-6 sm:pt-0 bg-[#E9F2EB] dark:bg-gray-900">
-        <div class="container mx-auto flex flex-col space-y-10">
+        <div class="container mx-auto flex flex-col space-y-10 flex-grow">
             <nav class="flex justify-between items-center py-2">
                 <div>
                     <a class="font-bold hover:text-emerald-600 transition" href="{{ route('homepage') }}">
@@ -42,7 +43,7 @@
                 </div>
             </nav>
 
-            <main>
+            <main class="flex flex-col flex-grow">
                 {{ $slot }}
             </main>
         </div>

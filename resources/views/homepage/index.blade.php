@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="flex flex-col justify-center items-center min-h-screen  ">
+    <div class="flex flex-col justify-center items-center  h-full flex-grow">
         <div class="mb-14 text-center px-4 space-y-3 ">
             <h2 class="font-semibold text-xl">Bienvenue sur InstaInspire, votre nouvelle plateforme pour capturer et partager des moments inoubliables !</h2>
             <p>InstaInspire n'est pas seulement un réseau social, c'est un espace vibrant où les amoureux de la photographie, les passionnés d'art et les raconteurs d'histoires du quotidien se réunissent pour partager leurs expériences.
@@ -15,15 +15,15 @@
         <div class="flex flex-wrap justify-center items-center w-full px-4">
             <!-- Image -->
             <div class="w-full md:w-1/2 px-4 flex justify-center border-[3px] border-[#395922]">
-                <img src="{{ asset('images/screenshot.png') }}" alt="démo du site" class="w-full h-auto object-cover max-w-screen-lg max-h-screen">
+                <img src="{{ asset('/storage/screenshot.png') }}" alt="démo du site" class="w-full h-auto object-cover max-w-screen-lg max-h-screen">
             </div>
 
             <!-- Formulaire de connexion -->
             @guest
-            <div class="hidden md:flex md:w-1/2 px-4 flex-col justify-center">
+            <div class="hidden md:flex md:w-1/2 px-12 flex-col justify-center">
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('login') }}" class="w-full max-w-xs">
+                <form method="POST" action="{{ route('login') }}" class="w-full">
                     @csrf
 
                     <!-- Champs du formulaire -->
@@ -45,24 +45,19 @@
                             <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                         </label>
                     </div>
-
                     <div class="flex items-center justify-end mt-4">
                         @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                             {{ __('Forgot your password?') }}
                         </a>
                         @endif
-
                         <x-primary-button class="ms-3 bg-[#6C8C6E]">
                             {{ __('Log in') }}
                         </x-primary-button>
                     </div>
-
                 </form>
             </div>
             @endguest
         </div>
-
-    </div>
     </div>
 </x-guest-layout>

@@ -54,6 +54,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $like = $post->likes()->where('user_id', auth()->id())->first();
 
         $comments = $post
             ->comments()
@@ -63,6 +64,7 @@ class PostController extends Controller
         return view('posts.show', [
             'post' => $post,
             'comments' => $comments,
+            'like' => $like,
         ]);
     }
 
